@@ -4,4 +4,13 @@ const router = express.Router();
 const User = require('../models/user.js'); 
 const Recipe = require('../models/recipe.js'); 
 
+// routes
+
+// landing page: GET /recipes
+// index route for recipes
+router.get('/', (req, res) => {
+    res.render('recipes/index.ejs'); 
+}); 
+
+
 module.exports = router; 
