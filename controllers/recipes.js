@@ -15,4 +15,17 @@ router.get('/', (req, res) => {
 router.get('/new', (req, res) => {
     res.render('recipes/new.ejs'); 
 }); 
+
+// create recipe route POST to /recipes
+router.post('/', async (req, res) => {
+    try {
+        const newRecipe = new Recipe(req.body); 
+        newRecipe.owner = req.session.user._id; 
+        await newRecipe.save();
+        res.redirect('/recipes'); 
+    } catch (error) {
+        res.redirect('/'); 
+    }
+}); 
+
 module.exports = router; 
