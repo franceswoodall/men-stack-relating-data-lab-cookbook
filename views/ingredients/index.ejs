@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredients</title>
+</head>
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    <h1>Ingredient Manager</h1>
+
+  <form action="/ingredients" method="POST">
+    <label for="name">New Ingredient:</label>
+    <input type="text" name="name" id="name">
+    <button type="submit">Add to List</button>
+  </form>
+
+  <h2>Current Ingredients</h2>
+  <ul>
+    <% ingredients.forEach(ingredient => { %>
+      <li><%= ingredient.name %></li>
+    <% }) %>
+  </ul>
+</body>
+</html>
+</body>
+</html>
