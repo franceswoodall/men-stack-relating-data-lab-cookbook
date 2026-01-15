@@ -30,24 +30,27 @@ app.use(
   })
 );
 
-app.use('/auth', authController); 
-app.use('/recipes', recipesController);
-app.use('/ingredients', ingredientsController); 
-
-// import models
-const Recipe = require('./models/recipe.js'); 
-const Ingredient = require('./models/ingredient.js'); 
-
-const isSignedIn = require('./middleware/is-signed-in.js'); 
-const passUserToView = require('./middleware/pass-user-to-view.js'); 
-
-// routes
 app.get('/', (req, res) => {
   res.render('index.ejs', {
     user: req.session.user,
   });
 });
 
+// middleware
+const isSignedIn = require('./middleware/is-signed-in.js'); 
+const passUserToView = require('./middleware/pass-user-to-view.js'); 
+
+app.use(passUserToView); 
+app.use('/auth', authController);
+app.use(isSignedIn); 
+app.use('/recipes', recipesController); 
+app.use('/ingredients', ingredientsController); 
+
+// import models
+const Recipe = require('./models/recipe.js'); 
+const Ingredient = require('./models/ingredient.js'); 
+
+// routes
 app.get('/vip-lounge', (req, res) => {
   if (req.session.user) {
     res.send(`Welcome to the party ${req.session.user.username}.`);
@@ -55,12 +58,6 @@ app.get('/vip-lounge', (req, res) => {
     res.send('Sorry, no guests allowed.');
   }
 });
-
-app.use(passUserToView); 
-app.use('/auth', authController);
-app.use(isSignedIn); 
-app.use('/recipes', recipesController); 
-app.use('/ingredients', ingredientsController); 
 
 
 // port 
