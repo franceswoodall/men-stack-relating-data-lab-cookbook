@@ -7,19 +7,35 @@
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
+
     <h1><%= recipe.name %></h1>
-    <h2>Ingredients</h2>
-        <ul>
-            <% recipe.ingredients.forEach(ingredient => { %>
-                <li><%= ingredient.name %></li>
-            <% })%>
-        </ul>
-    <h2>Instructions</h2>
-        <ul>
-            <li><%= recipe.instructions %></li>
-        </ul>
-    <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
-        <button type="submit">Delete Recipe</button>
-    </form>
+
+    <section> 
+        <h2>Ingredients</h2>
+            <ul>
+                <% if (recipe.ingredients && recipe.ingredients.length > 0) { %>
+                    <% recipe.ingredients.forEach(ingredient => { %>
+                        <li><%= ingredient.name %></li>
+                    <% })%>
+                <% } else { %>
+                        <li>No ingredients listed yet</li>
+                <% } %>
+            </ul>
+    </section>
+
+    <section>
+        <h2>Instructions</h2>
+            <p><%= recipe.instructions %></p>
+    </section>
+
+    <section>
+        <a href="/recipes/<%= recipe._id %>/edit">Edit Recipe Details</a>
+
+        <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
+            <button type="submit">Delete Recipe</button>
+        </form>
+    </section>
+
+    <a href="/recipes">Back to my recipes</a>
 </body>
 </html>

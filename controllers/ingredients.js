@@ -17,7 +17,14 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res)=> {
     try {
-        await Ingredient.create(req.body);
+
+        const ingredientName = req.body.name.toLowerCase(); 
+        const existingIngredient = await Ingredient.findOne({ name: ingredientName }); 
+
+        if (!existingIngredient) {
+        await Ingredient.create({ name: ingredientName });
+        }
+        
         res.redirect('/ingredients'); 
     } catch (error) {
         console.log(error);

@@ -7,17 +7,39 @@
 </head>
 <body>
      <%- include('../partials/_navbar.ejs') %>
+
+     <h1>Edit <%= recipe.name %></h1>
+
     <form action="/recipes/<%= recipe._id %>?_method=PUT" method="POST">
-    <label for="name">Recipe Name:</label>
-    <input type="text" name="name" id="name" value="<%= recipe.name %>">
 
-    <label for="instructions">Recipe Instructions:</label>
-    <input type="text" name="instructions" id="instructions" value="<%= recipe.instructions %>">
+        <div>
+            <label for="name">Recipe Name:</label>
+            <input type="text" name="name" id="name" value="<%= recipe.name %>">
+        </div>
 
-    <label for="ingredients">Recipe Ingredients</label>
-    <input type="text" name="ingredients" id="ingredients" value="<%= recipe.ingredients %>">
+        <div>
+            <label for="instructions">Recipe Instructions:</label>
+            <input type="text" name="instructions" id="instructions" value="<%= recipe.instructions %>">
+        </div>
+
+        <div>
+            <label for="ingredients">Recipe Ingredients</label>
+            <% ingredients.forEach((ingredient) => { %>
+                <label>
+                    <input 
+                        type="checkbox"
+                        name="ingredients"
+                        value="<%= ingredient._id %>"
+                        <% if (recipe.ingredients.some(id => id.equals(ingredient._id))) { %> checked <% } %>
+                        >
+                        <%= ingredient.name %>
+                </label>
+            <% }); %>
+        </div>
 
     <button type="submit">Update Recipe</button>
     </form>
+
+    <a href="/recipes/<%= recipe._id %>">Cancel</a>
 </body>
 </html>

@@ -2,22 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Recipe</title>
+    <title>Add New Recipe</title>
 </head>
 <body>
+
     <%- include('../partials/_navbar.ejs') %>
+
+    <h1>Create a New Recipe</h1>
+
     <form action="/recipes" method="POST">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" />
+   
+        <div>
+            <label for="name">Recipe Name:</label><br>
+            <input type="text" name="name" id="name" required>
+        </div>
 
-        <label for="instructions">Instructions:</label>
-        <input type="text" name="instructions" id="instructions" />
+        <div>
+            <label for="instructions">Instructions:</label><br>
+            <textarea name="instructions" id="instructions" rows="5"></textarea>
+        </div>
 
-        <label for="ingredients">Ingredients:</label>
-        <input type="ingredients" name="ingredients" id="ingredients" />
+        <h3>Ingredient Manager</h3>
+      
+            <label>Select from your list:</label><br>
+            <% ingredients.forEach((ingredient) => { %>
+                <label>
+                    <input type="checkbox" name="ingredients" value="<%= ingredient._id %>">
+                    <%= ingredient.name %>
+                </label><br>
+            <% }); %>
 
-        <button type="submit">Submit</button>
+            <br>
+
+            <label for="newIngredient">Add a new ingredient not listed above:</label><br>
+            <input type="text" name="newIngredientName" id="newIngredient" placeholder="e.g. Garlic">
+        </div>
+
+        <br>
+
+        <button type="submit">Save Recipe</button>
     </form>
+
+    <br>
+    <a href="/recipes">Cancel</a>
 </body>
 </html>

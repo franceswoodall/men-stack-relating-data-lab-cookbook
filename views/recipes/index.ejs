@@ -11,16 +11,17 @@
      <a href="/recipes/new">Add New Recipe</a>
      <h2>My Recipe List</h2>
      <ul>
-     <% if (recipes && recipes.length >0) { %>
-      <% recipes.forEach((recipe) => { %>
-        <li>
-          <%= recipe.name %>
+     <% if (recipes && recipes.length > 0) { %>
+        <% recipes.forEach((recipe) => { %>
+          <li>
+            <%= recipe.name %>
             <a href="/recipes/<%= recipe._id %>">View Recipe Details</a>
             <a href="/recipes/<%= recipe._id %>/edit">Edit Recipe Details</a>
-        </li>
+          
              <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
-              <button type="submit">Delete Recipe</button>
-          </form>
+                <button type="submit">Delete Recipe</button>
+            </form>
+          </li>
       <% }); %>
      <% } else { %>
       <p>You have not created any recipes yet</p>
